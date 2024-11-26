@@ -29,7 +29,11 @@
 
 name: 'Deploy to Cloud Run from Source'
 
-on: push
+on: 
+  workflow_dispatch:
+  release:
+    types:
+      - 'published'
 
 env:
   PROJECT_ID: 'focus-invention-198214' # TODO: update to your Google Cloud project ID
@@ -38,10 +42,12 @@ env:
 
 
 jobs:
-  job_id:
+  publish:
+    runs-on: 'ubuntu-latest'
     permissions:
       contents: 'read'
       id-token: 'write'
+      packages: 'write'
 
     steps:
     - id: 'checkout'
@@ -50,7 +56,9 @@ jobs:
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
       with:
-        workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+
+        project_id: PROJECT_ID
+        workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/my-repo'
         service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
 
     - id: 'upload-folder'
@@ -58,11 +66,5 @@ jobs:
       with:
         path: 'repo'
         destination: 'nhws-cdn'
-
-    # Example of using the output
-    - id: 'uploaded-files'
-      uses: 'foo/bar@v1'
-      env:
-        files: '${{ steps.upload-folder.outputs.uploaded }}'
 
 
