@@ -58,7 +58,7 @@ jobs:
       with:
 
         project_id: PROJECT_ID
-        workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/my-repo'
+        workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github'
         service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
 
     - id: 'upload-folder'
