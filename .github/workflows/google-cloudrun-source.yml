@@ -69,6 +69,9 @@ jobs:
       run: |
           echo "ID Token URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
           echo "ID Token: $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
+    - name: List Files
+      run: |
+          ls -alh
 
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
