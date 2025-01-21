@@ -73,6 +73,10 @@ jobs:
       run: |
           ls -alh
 
+    - name: Enable Debug Logging
+      run: |
+        echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
