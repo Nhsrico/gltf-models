@@ -27,7 +27,9 @@
 #
 # 3. Change the values in the "env" block to match your values.
 
+
 name: 'Deploy to Cloud Run from Source'
+
 
 on: 
   workflow_dispatch:
@@ -67,5 +69,9 @@ jobs:
       with:
         path: './repo'
         destination: 'gs://nhws-cdn/' # Ensure this matches your bucket name and optional path was 'nhws-cdn'
+#- name: Debug ID Token
+run-name: |
+    echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN
+    echo $ACTIONS_ID_TOKEN_REQUEST_URL
 
 
