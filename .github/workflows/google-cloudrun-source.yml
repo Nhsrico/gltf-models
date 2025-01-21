@@ -39,6 +39,7 @@ env:
   PROJECT_ID: 'focus-invention-198214' # TODO: update to your Google Cloud project ID
   REGION: 'eu (multiple regions in European Union)' # TODO: update to your region
   SERVICE: 'storage.googleapis.com' # TODO: update to your service name
+  attributeCondition: attribute.repository_owner == 'Nhsrico'
 
 
 jobs:
