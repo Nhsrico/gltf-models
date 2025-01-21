@@ -38,7 +38,7 @@ on:
 env:
   PROJECT_ID: 'focus-invention-198214' # TODO: update to your Google Cloud project ID
   REGION: 'eu (multiple regions in European Union)' # TODO: update to your region
-  SERVICE: 'storage-component.googleapis.com' # TODO: update to your service name
+  SERVICE: 'storage.googleapis.com' # TODO: update to your service name
 
 
 jobs:
@@ -64,7 +64,7 @@ jobs:
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
-        path: 'repo'
-        destination: 'nhws-cdn'
+        path: './repo'
+        destination: 'gs://nhws-cdn/' # Ensure this matches your bucket name and optional path was 'nhws-cdn'
 
 
