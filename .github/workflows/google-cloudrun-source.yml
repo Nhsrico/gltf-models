@@ -73,7 +73,7 @@ jobs:
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
-        path: './repo'
-        destination: 'gs://nhws-cdn/' # Ensure this matches your bucket name and optional path was 'nhws-cdn'
+        path: ''
+        destination: 'gs://nhws-cdn/repo/' # Ensure this matches your bucket name and optional path was 'nhws-cdn'
 
 
