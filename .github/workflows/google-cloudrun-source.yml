@@ -27,7 +27,7 @@
 #
 # 3. Change the values in the "env" block to match your values.
 
-
+    
 name: 'Deploy to Cloud Run from Source'
 
 
@@ -63,15 +63,17 @@ jobs:
         project_id: PROJECT_ID
         workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
         service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
+        audience: 'https://github.com/Nhsrico/gltf-models'
+        
+    - name: Debug ID Token
+      run: |
+          echo "ID Token URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
+          echo "ID Token: $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
 
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
         path: './repo'
         destination: 'gs://nhws-cdn/' # Ensure this matches your bucket name and optional path was 'nhws-cdn'
-#- name: Debug ID Token
-run-name: |
-    echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN
-    echo $ACTIONS_ID_TOKEN_REQUEST_URL
 
 
