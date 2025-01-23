@@ -76,6 +76,15 @@ jobs:
     - name: Enable Debug Logging
       run: |
         echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+    - name: Log OIDC Token
+      id: log-token
+      run: |
+        echo "Fetching OIDC token..."
+        curl -sSf \
+          -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+          $ACTIONS_ID_TOKEN_REQUEST_URL | jq '.' > oidc-token.json
+        echo "OIDC Token Claims:"
+        cat oidc-token.json
 
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
