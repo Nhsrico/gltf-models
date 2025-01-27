@@ -61,8 +61,8 @@ jobs:
       with:
 
         project_id: PROJECT_ID
-        # workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
-        workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/GitHub-Provider'
+        workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
+        #workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/GitHub-Provider'
         service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
         audience: 'https://github.com/Nhsrico'
         #audience: 'https://github.com/Nhsrico/gltf-models'
