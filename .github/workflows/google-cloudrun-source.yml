@@ -65,6 +65,10 @@ jobs:
         service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
         audience: 'https://github.com/Nhsrico/gltf-models'
         
+    - name: Enable Debug Logging
+      run: |
+        echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+        
     - name: Debug ID Token
       run: |
           echo "ID Token URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
@@ -73,9 +77,24 @@ jobs:
       run: |
           ls -alh
 
-    - name: Enable Debug Logging
+    - name: Debug OIDC Token Fetch
       run: |
-        echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+        echo "ID Token Request URL: $ACTIONS_ID_TOKEN_REQUEST_URL"
+        echo "ID Token Request Token: $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
+        curl -v -sSf \
+          -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+          "$ACTIONS_ID_TOKEN_REQUEST_URL"
+
+    - name: Decode OIDC Token
+      run: |
+        echo "Fetching OIDC token..."
+        TOKEN=$(curl -sSf \
+          -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+          "$ACTIONS_ID_TOKEN_REQUEST_URL")
+        echo "OIDC Token Raw:"
+        echo "$TOKEN" | cut -d '.' -f2 | base64 -d || true
+
+
     - name: Log OIDC Token
       id: log-token
       run: |
