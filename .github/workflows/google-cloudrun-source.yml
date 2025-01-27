@@ -109,7 +109,7 @@ jobs:
         cat oidc-token.json
         
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
+      uses: google-github-actions/auth@v2
       with:
         workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
         service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
