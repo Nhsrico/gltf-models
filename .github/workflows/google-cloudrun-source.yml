@@ -64,8 +64,8 @@ jobs:
         workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
         #workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/GitHub-Provider'
         service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
-        audience: 'https://github.com/Nhsrico'
-        #audience: 'https://github.com/Nhsrico/gltf-models'
+        #audience: 'https://github.com/Nhsrico'
+        audience: 'https://github.com/Nhsrico/gltf-models'
         
     - name: Enable Debug Logging
       run: |
@@ -108,11 +108,11 @@ jobs:
         echo "OIDC Token Claims:"
         cat oidc-token.json
         
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v2
-      with:
-        workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
-        service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
+#    - name: Authenticate to Google Cloud
+#      uses: google-github-actions/auth@v2
+#      with:
+#        workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
+#        service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
         
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
