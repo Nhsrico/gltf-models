@@ -148,6 +148,8 @@ jobs:
 
 
     - name: Upload Index File(s) to Cloud Storage
+      env:
+          GLTF_INDEX_FILE: "./gltf-index.txt"
       run: |
           echo "Trying Uploading index file $GLTF_INDEX_FILE "
           if [ -z "$GLTF_INDEX_FILE" ] || [ ! -f "$GLTF_INDEX_FILE" ]; then
