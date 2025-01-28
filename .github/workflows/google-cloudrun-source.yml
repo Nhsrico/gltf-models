@@ -151,7 +151,7 @@ jobs:
       run: |
           echo "Trying Uploading index file $GLTF_INDEX_FILE "
           if [ -z "$GLTF_INDEX_FILE" ] || [ ! -f "$GLTF_INDEX_FILE" ]; then
-            echo "Error: GLTF_INDEX_FILE is either empty or the file does not exist."
+            echo "Error: $GLTF_INDEX_FILE is either empty or the file does not exist."
             exit 1
           fi
           gsutil cp $GLTF_INDEX_FILE "gs://nhws-cdn/repo/gltf-index.txt"
