@@ -152,7 +152,7 @@ jobs:
             fi
           done
             
-          done
+          # done # ?? 
 
     - name: Upload Index File(s) to Cloud Storage
       run: |
