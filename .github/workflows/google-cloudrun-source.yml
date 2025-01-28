@@ -126,13 +126,13 @@ jobs:
     
     - name: Upload Files to Cloud Storage
       env:
-          GLTF_INDEX_FILE: "./gltf-index.txt"
+          # GLTF_INDEX_FILE: "gltf-index.txt"
           GLTF_FILE_EXTENSION: ".gltf" # Replace with the desired file extension
           GLB_FILE_EXTENSION: ".glb" # Replace with the desired file extension
       run: |
 
-          # GLTF_INDEX_FILE="./gltf-index.txt"
-          # export GLTF_INDEX_FILE
+          GLTF_INDEX_FILE="./gltf-index.txt"
+          export GLTF_INDEX_FILE
           echo "Generating index file at $GLTF_INDEX_FILE"
 
           # Find all .gltf and .glb files and write them to the index file
