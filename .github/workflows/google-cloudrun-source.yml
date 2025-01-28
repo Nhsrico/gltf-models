@@ -157,4 +157,4 @@ jobs:
     - name: Upload Index File(s) to Cloud Storage
       run: |
           echo "Uploading index file "$GLTF_INDEX_FILE
-          gsutil cp $GLTF_INDEX_FILE gs://nhws-cdn/repo/$GLTF_INDEX_FILE
+          gsutil cp $GLTF_INDEX_FILE gs://nhws-cdn/repo/gltf-index.txt
