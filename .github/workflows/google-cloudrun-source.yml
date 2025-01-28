@@ -126,16 +126,34 @@ jobs:
     
     - name: Upload Files to Cloud Storage
       env:
-          GLTF_INDEX_FILE: "./gltf-index.txt"
+          GLTF_INDEX_FILE: "./gltf-index.json"
           GLTF_FILE_EXTENSION: ".gltf" # Replace with the desired file extension
           GLB_FILE_EXTENSION: ".glb" # Replace with the desired file extension
       run: |
-          # GLTF_INDEX_FILE="./gltf-index.txt"
+          # GLTF_INDEX_FILE="./gltf-index.json"
           # export GLTF_INDEX_FILE
           echo "Generating index file at $GLTF_INDEX_FILE"
 
-          # Find all .gltf and .glb files and write them to the index file
-          find ./ -name "*.gltf" -o -name "*.glb" > "$GLTF_INDEX_FILE"
+          #      Find all .gltf and .glb files and write them to the index file
+          #   find ./ -name "*.gltf" -o -name "*.glb" > "$GLTF_INDEX_FILE"
+
+          #changing to json encoding
+          # Initialize an empty JSON array
+          echo "[" > "$GLTF_INDEX_FILE"
+          for file in $(find ./ -name "*.gltf" -o -name "*.glb"); do
+            # Get the base file name
+            BASENAME=$(basename "$FILE")
+            # Add the file name to the JSON array
+            echo "  { \"file\": \"$BASENAME\" }," >> "$GLTF_INDEX_FILE"
+            # Remove the trailing comma from the last JSON object
+            sed -i '$ s/,$//' "$GLTF_INDEX_FILE"
+
+            # Close the JSON array
+            echo "]" >> "$GLTF_INDEX_FILE"
+
+            # Output the created file for debugging
+            cat "$GLTF_INDEX_FILE"
+
 
           # Verify if the file is created
           if [ -f "$GLTF_INDEX_FILE" ]; then
@@ -149,7 +167,7 @@ jobs:
     - id: 'upload-file'  # Trying this since it worked for the folder above
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
-        path: './gltf-index.txt'
+        path: './gltf-index.json'
         destination: 'nhws-cdn/repo/'
 
 
