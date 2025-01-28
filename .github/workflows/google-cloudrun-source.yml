@@ -126,35 +126,35 @@ jobs:
     
     - name: Upload Files to Cloud Storage
       env:
-          GLTF_INDEX_FILE: gltf-index.txt
+          GLTF_INDEX_FILE: "./gltf-index.txt"
           GLTF_FILE_EXTENSION: ".gltf" # Replace with the desired file extension
           GLB_FILE_EXTENSION: ".glb" # Replace with the desired file extension
       run: |
-          echo "Generating index file: $GLTF_INDEX_FILE"
-          > $GLTF_INDEX_FILE # Create or empty the file
-          # Check for files with specific extension and append to relevent index        
-          # Find files and append to index
-          for file in $(find ./ -type f); do  # was ./path/to/files
-            #   echo "Uploading $file"
-            #   gsutil cp $file gs://nhws-cdn/repo/$(basename $file) # Already done earlier but could use this in the future
-            #   echo "$(basename $file)" >> $GLTF_INDEX_FILE
 
-            #First deal with the gltf/glb files, (other indexes later)
-             
+          # GLTF_INDEX_FILE="./gltf-index.txt"
+          # export GLTF_INDEX_FILE
+          echo "Generating index file at $GLTF_INDEX_FILE"
 
-            #if [[ $file == *$GLTF_FILE_EXTENSION ]]; then
-            if [[ $file == *$GLTF_FILE_EXTENSION || $file == *$GLB_FILE_EXTENSION ]]; then
-              #   echo "Uploading $file"
-              #   gsutil cp $file gs://BUCKET_NAME/$(basename $file)
-              echo "$(basename $file)" >> $GLTF_INDEX_FILE
-            else
-              echo "Skipping $file (does not match needed extension(s)  $GLTF_FILE_EXTENSION or $GLB_FILE_EXTENSION)"
-            fi
-          done
-            
-          # done # ?? 
+          # Find all .gltf and .glb files and write them to the index file
+          find ./ -name "*.gltf" -o -name "*.glb" > "$GLTF_INDEX_FILE"
+
+          # Verify if the file is created
+          if [ -f "$GLTF_INDEX_FILE" ]; then
+            echo "Index file created successfully. Contents:"
+            cat "$GLTF_INDEX_FILE"
+          else
+            echo "Error: Index file was not created."
+            exit 1
+          fi
+
 
     - name: Upload Index File(s) to Cloud Storage
       run: |
-          echo "Uploading index file "$GLTF_INDEX_FILE
+          echo "Trying Uploading index file "$GLTF_INDEX_FILE
+          if [ -z "$GLTF_INDEX_FILE" ] || [ ! -f "$GLTF_INDEX_FILE" ]; then
+            echo "Error: GLTF_INDEX_FILE is either empty or the file does not exist."
+            exit 1
+          fi
           gsutil cp $GLTF_INDEX_FILE "gs://nhws-cdn/repo/gltf-index.txt"
+
+
