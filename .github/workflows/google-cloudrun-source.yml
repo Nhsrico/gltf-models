@@ -134,7 +134,7 @@ jobs:
           > $GLTF_INDEX_FILE # Create or empty the file
           # Check for files with specific extension and append to relevent index        
           # Find files and append to index
-          for file in $(find ./path/to/files -type f); do
+          for file in $(find ./ -type f); do  # was ./path/to/files
             #   echo "Uploading $file"
             #   gsutil cp $file gs://nhws-cdn/repo/$(basename $file) # Already done earlier but could use this in the future
             #   echo "$(basename $file)" >> $GLTF_INDEX_FILE
