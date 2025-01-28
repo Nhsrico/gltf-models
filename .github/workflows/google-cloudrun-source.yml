@@ -62,7 +62,6 @@ jobs:
 
         project_id: PROJECT_ID
         workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/github/providers/gltf-models'
-        #workload_identity_provider: 'projects/52665217081/locations/global/workloadIdentityPools/GitHub-Provider'
         service_account: 'Github-TUDARD1@focus-invention-198214.iam.gserviceaccount.com'
         #audience: 'https://github.com/Nhsrico'
         audience: 'https://github.com/Nhsrico/gltf-models'
@@ -120,8 +119,42 @@ jobs:
         bucket: nhws-cdn
         path: './'
         destination: 'nhws-cdn/repo/'
-        #destination: 'gs://nhws-cdn/repo'
-        #destination: 'https://storage.googleapis.com/nhws-cdn/repo'
-        #'gs://nhws-cdn' # Ensure this matches your bucket name and optional path was 'nhws-cdn'
 
+#Want to generate index files for the different assets so adding in the following generated/extracted from chat-gpt
+    - name: Configure Google Cloud SDK
+      run: gcloud config set project PROJECT_ID
+    
+    - name: Upload Files to Cloud Storage
+      env:
+          GLTF_INDEX_FILE: gltf-index.txt
+          GLTF_FILE_EXTENSION: ".gltf" # Replace with the desired file extension
+          GLB_FILE_EXTENSION: ".glb" # Replace with the desired file extension
+      run: |
+          echo "Generating index file: $GLTF_INDEX_FILE"
+          > $GLTF_INDEX_FILE # Create or empty the file
+          # Check for files with specific extension and append to relevent index        
+          # Find files and append to index
+          for file in $(find ./path/to/files -type f); do
+            #   echo "Uploading $file"
+            #   gsutil cp $file gs://nhws-cdn/repo/$(basename $file) # Already done earlier but could use this in the future
+            #   echo "$(basename $file)" >> $GLTF_INDEX_FILE
 
+            #First deal with the gltf/glb files, (other indexes later)
+             
+
+            #if [[ $file == *$GLTF_FILE_EXTENSION ]]; then
+            if [[ $file == *$GLTF_FILE_EXTENSION || $file == *$GLB_FILE_EXTENSION ]]; then
+              #   echo "Uploading $file"
+              #   gsutil cp $file gs://BUCKET_NAME/$(basename $file)
+              echo "$(basename $file)" >> $GLTF_INDEX_FILE
+            else
+              echo "Skipping $file (does not match needed extension(s)  $GLTF_FILE_EXTENSION or $GLB_FILE_EXTENSION)"
+            fi
+          done
+            
+          done
+
+    - name: Upload Index File(s) to Cloud Storage
+      run: |
+          echo "Uploading index file "$GLTF_INDEX_FILE
+          gsutil cp $GLTF_INDEX_FILE gs://nhws-cdn/repo/$GLTF_INDEX_FILE
