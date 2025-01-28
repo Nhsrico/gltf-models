@@ -140,7 +140,7 @@ jobs:
           #changing to json encoding
           # Initialize an empty JSON array
           echo "[" > "$GLTF_INDEX_FILE"
-          for file in $(find ./ -name "*.gltf" -o -name "*.glb"); do
+          for FILE in $(find ./ -name "*.gltf" -o -name "*.glb"); do
             # Get the base file name
             BASENAME=$(basename "$FILE")
             # Add the file name to the JSON array
