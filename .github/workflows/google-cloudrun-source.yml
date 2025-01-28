@@ -124,7 +124,7 @@ jobs:
     - name: Configure Google Cloud SDK
       run: gcloud config set project focus-invention-198214
     
-    - name: Upload Files to Cloud Storage
+    - name: Upload Index Files to Cloud Storage
       env:
           GLTF_INDEX_FILE: "./gltf-index.json"
           GLTF_FILE_EXTENSION: ".gltf" # Replace with the desired file extension
@@ -145,6 +145,8 @@ jobs:
             BASENAME=$(basename "$FILE")
             # Add the file name to the JSON array
             echo "  { \"file\": \"$BASENAME\" }," >> "$GLTF_INDEX_FILE"
+            done
+            
             # Remove the trailing comma from the last JSON object
             sed -i '$ s/,$//' "$GLTF_INDEX_FILE"
 
