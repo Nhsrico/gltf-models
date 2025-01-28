@@ -130,7 +130,6 @@ jobs:
           GLTF_FILE_EXTENSION: ".gltf" # Replace with the desired file extension
           GLB_FILE_EXTENSION: ".glb" # Replace with the desired file extension
       run: |
-
           GLTF_INDEX_FILE="./gltf-index.txt"
           export GLTF_INDEX_FILE
           echo "Generating index file at $GLTF_INDEX_FILE"
@@ -150,7 +149,7 @@ jobs:
 
     - name: Upload Index File(s) to Cloud Storage
       run: |
-          echo "Trying Uploading index file "$GLTF_INDEX_FILE
+          echo "Trying Uploading index file $GLTF_INDEX_FILE "
           if [ -z "$GLTF_INDEX_FILE" ] || [ ! -f "$GLTF_INDEX_FILE" ]; then
             echo "Error: GLTF_INDEX_FILE is either empty or the file does not exist."
             exit 1
