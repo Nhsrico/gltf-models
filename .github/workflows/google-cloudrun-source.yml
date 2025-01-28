@@ -122,7 +122,7 @@ jobs:
 
 #Want to generate index files for the different assets so adding in the following generated/extracted from chat-gpt
     - name: Configure Google Cloud SDK
-      run: gcloud config set project PROJECT_ID
+      run: gcloud config set project focus-invention-198214
     
     - name: Upload Files to Cloud Storage
       env:
