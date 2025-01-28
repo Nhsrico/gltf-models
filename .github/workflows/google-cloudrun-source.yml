@@ -116,7 +116,7 @@ jobs:
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v2'
       with:
-        bucket: nhws-cdn
+        #  bucket: nhws-cdn
         path: './'
         destination: 'nhws-cdn/repo/'
 
@@ -146,6 +146,11 @@ jobs:
             exit 1
           fi
 
+    - id: 'upload-file'  # Trying this since it worked for the folder above
+      uses: 'google-github-actions/upload-cloud-storage@v2'
+      with:
+        path: './gltf-index.txt'
+        destination: 'nhws-cdn/repo/'
 
     - name: Upload Index File(s) to Cloud Storage
       env:
