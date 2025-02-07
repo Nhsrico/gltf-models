@@ -32,6 +32,8 @@ name: 'Deploy to Cloud Run from Source'
 
 
 on: 
+  push:
+  
   workflow_dispatch:
   release:
     types:
