@@ -1,0 +1,4 @@
+Step 1: Have the step conversion addon installed for blende
+Step 2: Import step file
+Step 3: Set rotation on X-axis to 270
+Step 4: Change scale to x10
